@@ -99,11 +99,11 @@
 
 
 ### Possiveis erros e como arrumalos
--could not find driver
-    Abra o arquivo php.ini. (Esse arquivo se enconta na pasta do seu php cli)
-    Procure por:
-    ;extension=pdo_sqlite
-    ;extension=sqlite3
-    Remova o ; do início dessas linhas (descomente):
-    extension=pdo_sqlite
-    extension=sqlite3
+- could not find driver</br>
+    Abra o arquivo php.ini. (Esse arquivo se enconta na pasta do seu php cli)</br>
+    Procure por:</br>
+    ;extension=pdo_sqlite</br>
+    ;extension=sqlite3</br>
+    Remova o ; do início dessas linhas (descomente):</br>
+    extension=pdo_sqlite</br>
+    extension=sqlite3</br>
