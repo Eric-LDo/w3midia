@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "code": "TEC",
+    "name": "Tecnologia",
+    "user_id": "1"
+  },
+  {
+    "id": "2",
+    "code": "ESP",
+    "name": "Esportes",
+    "user_id": "1"
+  },
+  {
+    "id": "3",
+    "code": "ENT",
+    "name": "Entretenimento",
+    "user_id": "1"
+  },
+  {
+    "id": "4",
+    "code": "POL",
+    "name": "Política",
+    "user_id": "1"
+  },
+  {
+    "id": "5",
+    "code": "SAU",
+    "name": "Saúde",
+    "user_id": "1"
+  },
+  {
+    "id": "6",
+    "code": "EDU",
+    "name": "Educação",
+    "user_id": "1"
+  },
+  {
+    "id": "7",
+    "code": "ECO",
+    "name": "Economia",
+    "user_id": "1"
+  },
+  {
+    "id": "8",
+    "code": "AMB",
+    "name": "Meio Ambiente",
+    "user_id": "1"
+  },
+  {
+    "id": "9",
+    "code": "CUL",
+    "name": "Cultura",
+    "user_id": "1"
+  },
+  {
+    "id": "10",
+    "code": "INT",
+    "name": "Internacional",
+    "user_id": "1"
+  }
+]

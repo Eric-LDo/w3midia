@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -11,9 +12,16 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('home', function () {
+        return Inertia::render('home');
+    })->name('homepage');
 });
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('news', function () {
+        return Inertia::render('news');
+    })->name('news');
+});
+
+Route::post('/upload-image', [ImageController::class, 'store']);
 
 require __DIR__.'/settings.php';

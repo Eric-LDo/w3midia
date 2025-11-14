@@ -1,0 +1,151 @@
+[
+  {
+    "id": "1",
+    "code": "news1",
+    "title": "Novo Filme do Super-Herói Chega aos Cinemas",
+    "summary": "O aguardado filme do universo cinematográfico promete reviravoltas surpreendentes e efeitos especiais impressionantes que vão deixar os fãs maravilhados.",
+    "description": "O novo filme do super-herói mais aguardado do ano finalmente chega aos cinemas. Com um elenco estelar e direção premiada, a produção promete ser um marco no gênero. As filmagens ocorreram em três países diferentes e contaram com orçamento recorde. Os fãs podem esperar cenas de ação espetaculares e um desenvolvimento profundo dos personagens principais.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "2",
+                    "code": "ESP",
+                    "name": "Esportes",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "2",
+    "code": "news2",
+    "title": "Descoberta Científica Revoluciona Medicina",
+    "summary": "Pesquisadores anunciam avanço significativo no tratamento de doenças crônicas usando tecnologia de ponta e métodos inovadores.",
+    "description": "Uma equipe internacional de cientistas desenvolveu uma nova abordagem terapêutica que pode mudar radicalmente o tratamento de diversas condições médicas. O estudo, publicado na revista Nature, mostra resultados promissores em testes clínicos iniciais. A técnica utiliza nanotecnologia para direcionar medicamentos especificamente às células afetadas.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "2",
+                    "code": "ESP",
+                    "name": "Esportes",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "3",
+    "code": "news3",
+    "title": "Lançamento do Novo Smartphone com IA Integrada",
+    "summary": "A empresa revelou seu mais recente dispositivo móvel com capacidades de inteligência artificial nunca vistas antes no mercado.",
+    "description": "O novo smartphone apresenta recursos de IA que permitem desde edição avançada de fotos até assistente pessoal com compreensão contextual. A bateria tem duração de 48 horas e o processador é o mais rápido já desenvolvido pela empresa. O dispositivo já está disponível para pré-venda em todo o mundo.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "1",
+                    "code": "TEC",
+                    "name": "Tecnologia",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "4",
+    "code": "news4",
+    "title": "Time Local Conquista Campeonato Histórico",
+    "summary": "Após 20 anos, a equipe da cidade vence o torneio nacional em partida emocionante decidida nos últimos minutos.",
+    "description": "Em uma noite memorável para o esporte local, o time conquistou o título nacional após vitória por 3x2 na final. O jogo foi marcado por emoções intensas, com o gol da vitória sendo marcado nos acréscimos. Milhares de torcedores celebraram nas ruas da cidade, em uma festa que durou até o amanhecer.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "2",
+                    "code": "ESP",
+                    "name": "Esportes",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "5",
+    "code": "news5",
+    "title": "Festival de Música Atrai Milhares de Pessoas",
+    "summary": "Evento musical reúne artistas internacionais e nacionais em três dias de apresentações memoráveis.",
+    "description": "O festival contou com mais de 50 atrações distribuídas em cinco palcos diferentes. Artistas consagrados e novas promessas da música se apresentaram para um público recorde. A organização destacou a infraestrutura moderna e a preocupação com sustentabilidade, utilizando energia renovável em 80% do evento.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "3",
+                    "code": "ENT",
+                    "name": "Entretenimento",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "6",
+    "code": "news6",
+    "title": "Nova Política Ambiental é Aprovada",
+    "summary": "Governo anuncia medidas rigorosas para reduzir emissões de carbono e promover energias renováveis.",
+    "description": "A nova legislação estabelece metas ambiciosas para a próxima década, incluindo a redução de 50% nas emissões de gases de efeito estufa. O pacote inclui incentivos fiscais para empresas sustentáveis e investimentos em pesquisa de tecnologias verdes. Especialistas classificam a medida como um passo importante no combate às mudanças climáticas.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {   "id": "8",
+                    "code": "AMB",
+                    "name": "Meio Ambiente",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "7",
+    "code": "news7",
+    "title": "Chef Renomado Abre Restaurante na Cidade",
+    "summary": "O premiado chef internacional escolhe a capital para inaugurar seu mais novo empreendimento gastronômico.",
+    "description": "Com estrela Michelin e reconhecimento mundial, o chef traz sua culinária inovadora para a cidade. O restaurante oferece menu degustação com ingredientes locais selecionados e técnicas contemporâneas. As reservas para os primeiros meses já estão esgotadas, demonstrando a expectativa em torno da inauguração.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "9",
+                    "code": "CUL",
+                    "name": "Cultura",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "8",
+    "code": "news8",
+    "title": "Exposição de Arte Moderna Que Recordes de Visitação",
+    "summary": "Mostra reúne obras de artistas contemporâneos e já recebeu mais de 100 mil visitantes.",
+    "description": "A exposição apresenta trabalhos de artistas emergentes e consagrados, explorando temas como identidade e tecnologia. Instalações interativas e realidade aumentada complementam as obras tradicionais. Curadores destacam a diversidade de técnicas e perspectivas presentes na seleção.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "9",
+                    "code": "CUL",
+                    "name": "Cultura",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "9",
+    "code": "news9",
+    "title": "Startup Local Recebe Investimento Milionário",
+    "summary": "Empresa de tecnologia desenvolve solução inovadora e atrai atenção de fundos de venture capital.",
+    "description": "A startup, fundada há apenas dois anos, criou uma plataforma que resolve problemas logísticos complexos usando algoritmos proprietários. O investimento de R$ 50 milhões permitirá a expansão internacional e contratação de novos talentos. O caso inspira outros empreendedores da região.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": true,
+    "category": {
+                    "id": "1",
+                    "code": "TEC",
+                    "name": "Tecnologia",
+                    "user_id": "1"
+                }
+  },
+  {
+    "id": "10",
+    "code": "news10",
+    "title": "Descoberta Arqueológica Reescreve História Antiga",
+    "summary": "Artefatos encontrados em escavação desafiam teorias estabelecidas sobre civilizações antigas.",
+    "description": "A descoberta inclui ferramentas, cerâmicas e inscrições que sugerem trocas culturais entre civilizações antes consideradas isoladas. A datação por carbono indica que os objetos são 2.000 anos mais antigos do que se imaginava. Arqueólogos de várias universidades colaboram no estudo dos achados.",
+    "image": "https://i.pinimg.com/736x/da/cc/f2/daccf2abeb1d00d1210887345a65eb2e.jpg",
+    "status": false,
+    "category": {
+                    "id": "10",
+                    "code": "INT",
+                    "name": "Internacional",
+                    "user_id": "1"
+                }
+  }
+]
