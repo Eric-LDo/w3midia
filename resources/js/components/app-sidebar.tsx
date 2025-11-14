@@ -10,7 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { homepage, news } from '@/routes';
+import {  category, homepage, news } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder,Home , Newspaper} from 'lucide-react';
@@ -26,6 +26,11 @@ const mainNavItems: NavItem[] = [
         title: 'News',
         href: news(),
         icon: Newspaper,
+    },
+    {
+        title: 'Category',
+        href: category(),
+        icon: Folder,
     },
 ];
 

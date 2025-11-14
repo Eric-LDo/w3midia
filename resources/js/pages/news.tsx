@@ -6,8 +6,10 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/login';
 import { Form, Head } from '@inertiajs/react';
+
 import AppLayout from '@/layouts/app-layout';
 import categories from './testcategory.json';
+import testeNews from './testnews.json';
 
 import { news } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
@@ -23,6 +25,7 @@ import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import EditNews from '@/components/edit-news';
 
 registerPlugin(FilePondPluginImagePreview);
 
@@ -62,183 +65,195 @@ export default function News({
         status: true,
         category: {id: "", code: "", name: "", user_id: ""}
     } as newsItem)
+
     const categoriesList: Category[] = categories;
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={breadcrumbs} >
             <Head title="News" />
-            <div className='flex flex-col md:flex-row'>
-                <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <Form
-                    {...store.form()}
-                    className="flex flex-col gap-6"
-                >
-                    {({ processing, errors }) => (
-                        <>
-                            <input type="hidden" name="image" value={News.image} />
-                            <div className="grid gap-6">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="title">Title</Label>
-                                    <Input
-                                        id="title"
-                                        type="text"
-                                        required
-                                        autoFocus
-                                        tabIndex={1}
-                                        autoComplete="title"
-                                        name="title"
-                                        placeholder="Titulo"
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            setNews(prev => ({ ...prev, title: e.target.value }))
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.title}
-                                        className="mt-2"
-                                    />
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="summary">Summary</Label>
-                                    <Input
-                                        id="summary"
-                                        type="text"
-                                        required
-                                        tabIndex={2}
-                                        autoComplete="summary"
-                                        name="summary"
-                                        placeholder="Resumo"
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            setNews(prev => ({ ...prev, summary: e.target.value }))
-                                        }
-                                    />
-                                    <InputError message={errors.summary} />
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="description">Description</Label>
-                                    <Input
-                                        id="description"
-                                        type="text"
-                                        required
-                                        tabIndex={3}
-                                        autoComplete="description"
-                                        name="description"
-                                        placeholder="Description"
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            setNews(prev => ({ ...prev, description: e.target.value }))
-                                        }
-                                    />
-                                    <InputError message={errors.description} />
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="category">
-                                        Category
-                                    </Label>
-                                    <Select value={selectedCategory} onValueChange={onCategoryChange && ((value: string) => {
-                                        onCategoryChange(value);
-                                        const selectedCat = categoriesList.find(cat => cat.id === value);
-                                        if (selectedCat) {
-                                            setNews(prev => ({ ...prev, category: selectedCat }));
-                                        }
-                                    })}>
-                                    <SelectTrigger className="w-full">
-                                        <SelectValue placeholder={placeholder} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {categoriesList.map((category) => (
-                                        <SelectItem key={category.id} value={category.id}>
-                                            {category.name} ({category.code})
-                                        </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                    </Select>
-                                    <InputError
-                                        message={errors.category}
-                                    />
-                                </div>
-                                <div className="grid gap-2">
-                                    <FilePond
-                                        name="image"
-                                        allowMultiple={false}
-                                        acceptedFileTypes={["image/*"]}
-                                        server={{
-                                            process: {
-                                                url: "/upload-image",
-                                                method: "POST",
-                                                headers: {
-                                                    "X-CSRF-TOKEN": document
-                                                        .querySelector('meta[name="csrf-token"]')
-                                                        ?.getAttribute("content") ?? ""
-                                                },
-                                                onload: (response: string) => {
-                                                    try {
-                                                        const data = JSON.parse(response);
-                                                        const input = document.querySelector('input[name="image"]') as HTMLInputElement | null;
-                                                        if (input) {
-                                                            input.value = data.path ?? data.id ?? data.url ?? '';
-                                                        }
-                                                        if (data.url) {
-                                                            setNews(prev => ({ ...prev, image: data.url }));
-                                                        } else if (data.path) {
-                                                            setNews(prev => ({ ...prev, image: `/storage/${data.path}` }));
-                                                        }
-                                                        return data.path ?? data.id ?? response;
-                                                    } catch {
-                                                            return response;
-                                                        }
-                                                }
+            <div className="overflow-x-auto">
+                <h1 className="text-2xl font-bold mb-4">Create news</h1>
+                <div className='flex flex-col md:flex-row'>
+                    <div className="flex h-full flex-1 flex-col gap-4  rounded-xl p-4">
+                    <Form
+                        {...store.form()}
+                        className="flex flex-col gap-6"
+                    >
+                        {({ processing, errors }) => (
+                            <>
+                                <input type="hidden" name="image" value={News.image} />
+                                <div className="grid gap-6">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="title">Title</Label>
+                                        <Input
+                                            id="title"
+                                            type="text"
+                                            required
+                                            autoFocus
+                                            tabIndex={1}
+                                            autoComplete="title"
+                                            name="title"
+                                            placeholder="Titulo"
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setNews(prev => ({ ...prev, title: e.target.value }))
                                             }
-                                        }}
-                                        onremovefile={() => {
-                                            const input = document.querySelector('input[name="image"]') as HTMLInputElement | null;
-                                            if (input) input.value = '';
-                                            setNews(prev => ({ ...prev, image: '' }));
-                                        }}
-                                    />
-
-                                </div>
-                                <div className="gap-2 flex flex-row items-center">
-                                    <Input
-                                        type='radio'
-                                        className='w-3'
-                                        id="category"
-                                        name="category"
-                                        value={selectedStatus? 'active' : 'inactive'}
-                                        onClick={() => setSelectedStatus(!selectedStatus)}
-                                        checked={selectedStatus? true : false}
                                         />
-                                    <Label htmlFor="category">
-                                        Status {selectedStatus? 'Active' : 'Inactive'}
-                                    </Label>
+                                        <InputError
+                                            message={errors.title}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="summary">Summary</Label>
+                                        <Input
+                                            id="summary"
+                                            type="text"
+                                            required
+                                            tabIndex={2}
+                                            autoComplete="summary"
+                                            name="summary"
+                                            placeholder="Resumo"
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setNews(prev => ({ ...prev, summary: e.target.value }))
+                                            }
+                                        />
+                                        <InputError message={errors.summary} />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="description">Description</Label>
+                                        <Input
+                                            id="description"
+                                            type="text"
+                                            required
+                                            tabIndex={3}
+                                            autoComplete="description"
+                                            name="description"
+                                            placeholder="Description"
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                setNews(prev => ({ ...prev, description: e.target.value }))
+                                            }
+                                        />
+                                        <InputError message={errors.description} />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="category">
+                                            Category
+                                        </Label>
+                                        <Select value={selectedCategory} onValueChange={onCategoryChange && ((value: string) => {
+                                            onCategoryChange(value);
+                                            const selectedCat = categoriesList.find(cat => cat.id === value);
+                                            if (selectedCat) {
+                                                setNews(prev => ({ ...prev, category: selectedCat }));
+                                            }
+                                        })}>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder={placeholder} />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {categoriesList.map((category) => (
+                                            <SelectItem key={category.id} value={category.id}>
+                                                {category.name} ({category.code})
+                                            </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                        </Select>
+                                        <InputError
+                                            message={errors.category}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <FilePond
+                                            name="image"
+                                            allowMultiple={false}
+                                            acceptedFileTypes={["image/*"]}
+                                            server={{
+                                                process: {
+                                                    url: "/upload-image",
+                                                    method: "POST",
+                                                    headers: {
+                                                        "X-CSRF-TOKEN": document
+                                                            .querySelector('meta[name="csrf-token"]')
+                                                            ?.getAttribute("content") ?? ""
+                                                    },
+                                                    onload: (response: string) => {
+                                                        try {
+                                                            const data = JSON.parse(response);
+                                                            const input = document.querySelector('input[name="image"]') as HTMLInputElement | null;
+                                                            if (input) {
+                                                                input.value = data.path ?? data.id ?? data.url ?? '';
+                                                            }
+                                                            if (data.url) {
+                                                                setNews(prev => ({ ...prev, image: data.url }));
+                                                            } else if (data.path) {
+                                                                setNews(prev => ({ ...prev, image: `/storage/${data.path}` }));
+                                                            }
+                                                            return data.path ?? data.id ?? response;
+                                                        } catch {
+                                                                return response;
+                                                            }
+                                                    }
+                                                }
+                                            }}
+                                            onremovefile={() => {
+                                                const input = document.querySelector('input[name="image"]') as HTMLInputElement | null;
+                                                if (input) input.value = '';
+                                                setNews(prev => ({ ...prev, image: '' }));
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="gap-2 flex flex-row items-center">
+                                        <Input
+                                            type='radio'
+                                            className='w-3'
+                                            id="category"
+                                            name="category"
+                                            value={selectedStatus? 'active' : 'inactive'}
+                                            onClick={() => setSelectedStatus(!selectedStatus)}
+                                            checked={selectedStatus? true : false}
+                                            />
+                                        <Label htmlFor="category">
+                                            Status {selectedStatus? 'Active' : 'Inactive'}
+                                        </Label>
+                                    </div>
+                                    <Button
+                                        type="submit"
+                                        className="mt-2 w-full"
+                                        tabIndex={5}
+                                        data-test="register-user-button"
+                                    >
+                                        {processing && <Spinner />}
+                                        Create
+                                    </Button>
                                 </div>
-
-
-                                <Button
-                                    type="submit"
-                                    className="mt-2 w-full"
-                                    tabIndex={5}
-                                    data-test="register-user-button"
-                                >
-                                    {processing && <Spinner />}
-                                    Create
-                                </Button>
-                            </div>
-                        </>
-                    )}
-                </Form>
+                            </>
+                        )}
+                    </Form>
+                    </div>
+                    <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+                        <NewCard
+                            key="1"
+                            id="1"
+                            code="news1"
+                            title={News.title}
+                            summary={News.summary}
+                            description={News.description}
+                            image={News.image}
+                            status={News.status}
+                            category={News.category}
+                        />
+                    </div>
                 </div>
-                <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                    <NewCard
-                        key="1"
-                        id="1"
-                        code="news1"
-                        title={News.title}
-                        summary={News.summary}
-                        description={News.description}
-                        image={News.image}
-                        status={News.status}
-                        category={News.category}
-                    />
+                <hr/>
+                <h1 className="text-2xl font-bold mb-4">Edit my news</h1>
+                <div className='flex flex-col justify-center items-center'>
+                    {testeNews.map((newsItem) => (
+                        <EditNews
+                            newsItem={newsItem}
+                            key={newsItem.id}
+                        />
+                    ))}
                 </div>
             </div>
+
         </AppLayout>
     );
 }
