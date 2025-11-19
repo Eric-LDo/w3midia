@@ -40,14 +40,14 @@ class Category extends Model
             }
 
             // Garantir user_id
-            if (empty($category->user_id) && auth()->check()) {
-                $category->user_id = auth()->id();
-            }
+            // if (empty($category->user_id) && auth()->check()) {
+            //     $category->user_id = auth()->id();
+            // }
         });
 
         static::updating(function (Category $category) {
 
-            // Atualiza código se o nome mudar
+            
             if ($category->isDirty('name')) {
                 $category->code = self::generateCode($category->name);
             }

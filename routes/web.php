@@ -13,6 +13,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/home', function () {
@@ -29,16 +31,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Upload de imagem
     Route::post('/upload-image', [ImageController::class, 'store']);
+
 });
-// API endpoints for Categories and News (JSON)
+
+
 Route::middleware(['auth', 'verified'])->prefix('api')->group(function () {
-    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
-    Route::get('/categories/{category}', [CategoryController::class, 'show']);
+    Route::get('/categories', [CategoryController::class, 'show']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-    Route::get('/categories/my/{user}', [CategoryController::class, 'showMyCategories'])
-    ->name('categories.my');
+    Route::get('/categories/my', [CategoryController::class, 'myCategories']);
+
+
+
 
     Route::get('/news', [NewsController::class, 'index']);
     Route::post('/news', [NewsController::class, 'store']);

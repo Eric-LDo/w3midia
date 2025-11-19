@@ -10,70 +10,76 @@ use Inertia\Inertia;
 class CategoryController extends Controller
 {
     /**
-     * Página do Inertia
+     * Página principal (Inertia)
+     * O React faz o fetch das categorias depois.
      */
     public function page()
     {
-        return Inertia::render('category', [
-            'categories' => Category::where('user_id', Auth::id())
-                ->orderBy('created_at', 'desc')
-                ->get(),
-        ]);
+        return Inertia::render('category');
     }
 
+
     /**
-     * API: Listar
+     * API: Retorna apenas as categorias do usuário autenticado (JSON)
      */
-    public function index()
+    public function myCategories()
     {
-        return response()->json(
-            Category::where('user_id', Auth::id())
+        try {
+            $categories = Category::where('user_id', Auth::id())
                 ->orderBy('created_at', 'desc')
-                ->paginate(15)
-        );
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'categories' => $categories
+            ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Erro ao carregar categorias: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
+
     /**
-     * API: Criar categoria
+     * API: Criar categoria (via Inertia <Form>)
      */
     public function store(Request $request)
-{
-    try {
-        $validated = $request->validate([
-            'name' => 'required|min:2|max:100',
-        ]);
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|min:2|max:100',
+            ]);
 
-        $category = Category::create([
-            'name' => $validated['name'],
-            'user_id' => Auth::id(),
-        ]);
+            Category::create([
+                'name'     => $validated['name'],
+                'user_id'  => Auth::id(),
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Categoria criada!',
-            'category' => $category,
-        ], 201);
+            return redirect()->back()->with('success', 'Categoria criada!');
 
-    } catch (\Throwable $e) {
-        return response()->json([
-            'success' => false,
-            'error' => 'Erro ao criar: ' . $e->getMessage(),
-        ], 500);
+        } catch (\Throwable $e) {
+            return redirect()->back()->withErrors([
+                'error' => 'Erro ao criar categoria: ' . $e->getMessage()
+            ]);
+        }
     }
-}
+
 
     /**
-     * API: Mostrar categoria
+     * API: Mostrar categoria específica
      */
     public function show(Category $category)
     {
         $this->checkOwner($category);
-
         return response()->json($category);
     }
 
+
     /**
-     * API: Atualizar
+     * API: Atualizar categoria
      */
     public function update(Request $request, Category $category)
     {
@@ -85,53 +91,40 @@ class CategoryController extends Controller
             ]);
 
             $category->update([
-                'name' => $validated['name'],
+                'name' => $validated['name']
             ]);
 
             return redirect()->back()->with('success', 'Categoria atualizada!');
+
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors([
-                'error' => 'Erro ao atualizar categoria: ' . $e->getMessage()
+                'error' => 'Erro ao atualizar: ' . $e->getMessage()
             ]);
         }
     }
 
+
     /**
-     * API: Deletar
+     * API: Excluir categoria
      */
     public function destroy(Category $category)
     {
         try {
             $this->checkOwner($category);
-
             $category->delete();
 
             return redirect()->back()->with('success', 'Categoria deletada!');
+
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors([
-                'error' => 'Erro ao deletar categoria: ' . $e->getMessage()
+                'error' => 'Erro ao excluir: ' . $e->getMessage()
             ]);
         }
     }
 
-    /**
-     * API: Categorias de um usuário específico
-     */
-    public function showMyCategories($userId)
-    {
-        try {
-            return response()->json(
-                Category::where('user_id', $userId)->get()
-            );
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => 'Erro ao buscar categorias: ' . $e->getMessage()
-            ], 500);
-        }
-    }
 
     /**
-     * Garante que o usuário é dono da categoria
+     * Função privada para garantir que a categoria pertence ao usuário logado
      */
     private function checkOwner(Category $category)
     {
